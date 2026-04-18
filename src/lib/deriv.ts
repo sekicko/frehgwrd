@@ -181,12 +181,19 @@ export class DerivClient {
     return this.send(payload);
   }
 
-  appMarkupStatistics(dateFrom: string, dateTo: string) {
-    return this.send({
+  appMarkupStatistics(dateFrom: string, dateTo: string, appIds?: number[]) {
+    const payload: Record<string, any> = {
       app_markup_statistics: 1,
       date_from: dateFrom,
       date_to: dateTo,
-    });
+    };
+    if (appIds && appIds.length) payload.app_id = appIds;
+    return this.send(payload);
+  }
+
+  // List all apps registered by the authenticated user.
+  appList() {
+    return this.send({ app_list: 1 });
   }
 }
 
