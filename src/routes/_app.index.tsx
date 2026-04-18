@@ -23,44 +23,6 @@ function Home() {
   if (!activeToken) return null;
   return <Dashboard token={activeToken} accountLabel={session?.activeAccount ?? ""} />;
 }
-import { useEffect, useMemo, useState } from "react";
-import { useAuth } from "@/lib/auth";
-import { useDerivData } from "@/lib/useDerivData";
-import { useCommissionStats } from "@/lib/useCommissionStats";
-import { DashboardHeader } from "@/components/dashboard/DashboardHeader";
-import { StatCard } from "@/components/dashboard/StatCard";
-import { ComparisonCard } from "@/components/dashboard/ComparisonCard";
-import { CommissionChart } from "@/components/dashboard/CommissionChart";
-import { ClientsTable } from "@/components/dashboard/ClientsTable";
-import { AppCommissionsTable } from "@/components/dashboard/AppCommissionsTable";
-import { DateRangePicker } from "@/components/dashboard/DateRangePicker";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { AlertCircle, Loader2, RefreshCw } from "lucide-react";
-import { format } from "date-fns";
-
-export const Route = createFileRoute("/_app/")({
-  component: Home,
-});
-
-function Home() {
-  const { isAuthenticated, activeToken, session } = useAuth();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!isAuthenticated) void navigate({ to: "/login" });
-  }, [isAuthenticated, navigate]);
-
-  if (!isAuthenticated) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-background">
-        <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
-      </div>
-    );
-  }
-
-  return <Dashboard token={activeToken!} accountLabel={session?.activeAccount ?? ""} />;
-}
 
 function Dashboard({ token, accountLabel }: { token: string; accountLabel: string }) {
   const { status, data, loading, error, refresh } = useDerivData(token);
@@ -91,13 +53,10 @@ function Dashboard({ token, accountLabel }: { token: string; accountLabel: strin
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <DashboardHeader status={status} />
-
-      <main className="mx-auto max-w-7xl px-6 py-8">
-        {/* Header */}
-        <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
-          <div>
+    <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6">
+      {/* Header */}
+      <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
+        <div>
             <h1 className="text-2xl font-semibold tracking-tight">
               {data?.authorize?.fullname || "Welcome back"}
             </h1>
