@@ -195,7 +195,76 @@ export class DerivClient {
   appList() {
     return this.send({ app_list: 1 });
   }
+
+  appGet(appId: number) {
+    return this.send({ app_get: appId });
+  }
+
+  appDelete(appId: number) {
+    return this.send({ app_delete: appId });
+  }
+
+  appMarkupDetails(appId: number, dateFrom: string, dateTo: string) {
+    return this.send({
+      app_markup_details: 1,
+      app_id: appId,
+      date_from: dateFrom,
+      date_to: dateTo,
+    });
+  }
+
+  // Register a new app. See: https://api.deriv.com/api-explorer#app_register
+  appRegister(payload: AppRegisterPayload) {
+    return this.send({ app_register: 1, ...payload });
+  }
+
+  // Update an existing app. Same fields as register + app_update id.
+  appUpdate(appId: number, payload: AppRegisterPayload) {
+    return this.send({ app_update: appId, ...payload });
+  }
+
+  // ---- API Tokens ----
+  apiTokenList() {
+    return this.send({ api_token: 1 });
+  }
+
+  apiTokenCreate(name: string, scopes: ApiTokenScope[], validForCurrentIpOnly = false) {
+    return this.send({
+      api_token: 1,
+      new_token: name,
+      new_token_scopes: scopes,
+      valid_for_current_ip_only: validForCurrentIpOnly ? 1 : 0,
+    });
+  }
+
+  apiTokenDelete(token: string) {
+    return this.send({ api_token: 1, delete_token: token });
+  }
 }
+
+export type ApiTokenScope = "read" | "trade" | "trading_information" | "payments" | "admin";
+
+export const ALL_TOKEN_SCOPES: { value: ApiTokenScope; label: string; description: string }[] = [
+  { value: "read", label: "Read", description: "View account activity, settings, balances." },
+  { value: "trade", label: "Trade", description: "Buy and sell contracts, manage positions." },
+  { value: "trading_information", label: "Trading info", description: "View trading history." },
+  { value: "payments", label: "Payments", description: "Withdraw, deposit, transfer between accounts." },
+  { value: "admin", label: "Admin", description: "Full access including managing tokens & apps." },
+];
+
+// Deriv app_register payload — mirrors the official API spec.
+// Docs: https://api.deriv.com/api-explorer#app_register
+export type AppRegisterPayload = {
+  name: string;
+  scopes: ApiTokenScope[];
+  redirect_uri?: string;
+  verification_uri?: string;
+  homepage?: string;
+  github?: string;
+  appstore?: string;
+  googleplay?: string;
+  app_markup_percentage?: number; // 0 - 5
+};
 
 // Singleton — one connection per browser tab.
 let _client: DerivClient | null = null;
