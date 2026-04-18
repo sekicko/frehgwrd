@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import { AlertCircle, Loader2, RefreshCw } from "lucide-react";
 import { format } from "date-fns";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/_app/")({
   component: Home,
 });
 
