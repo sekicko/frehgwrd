@@ -1,4 +1,28 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
+import { useMemo, useState } from "react";
+import { useAuth } from "@/lib/auth";
+import { useDerivData } from "@/lib/useDerivData";
+import { useCommissionStats } from "@/lib/useCommissionStats";
+import { StatCard } from "@/components/dashboard/StatCard";
+import { ComparisonCard } from "@/components/dashboard/ComparisonCard";
+import { CommissionChart } from "@/components/dashboard/CommissionChart";
+import { ClientsTable } from "@/components/dashboard/ClientsTable";
+import { AppCommissionsTable } from "@/components/dashboard/AppCommissionsTable";
+import { DateRangePicker } from "@/components/dashboard/DateRangePicker";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { AlertCircle, Loader2, RefreshCw } from "lucide-react";
+import { format } from "date-fns";
+
+export const Route = createFileRoute("/_app/")({
+  component: Home,
+});
+
+function Home() {
+  const { activeToken, session } = useAuth();
+  if (!activeToken) return null;
+  return <Dashboard token={activeToken} accountLabel={session?.activeAccount ?? ""} />;
+}
 import { useEffect, useMemo, useState } from "react";
 import { useAuth } from "@/lib/auth";
 import { useDerivData } from "@/lib/useDerivData";
