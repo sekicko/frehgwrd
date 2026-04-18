@@ -237,7 +237,7 @@ function LoginPage() {
               <ExternalLink className="ml-2 h-4 w-4" />
             </Button>
 
-            <div className="my-5 flex items-center gap-3 text-[11px] uppercase tracking-wider text-muted-foreground">
+            <div className="my-4 flex items-center gap-3 text-[10px] uppercase tracking-wider text-muted-foreground sm:my-5 sm:text-[11px]">
               <div className="h-px flex-1 bg-border/60" />
               or paste a token
               <div className="h-px flex-1 bg-border/60" />
@@ -278,86 +278,92 @@ function LoginPage() {
         </section>
 
         {/* Features */}
-        <section className="mt-20">
-          <div className="mb-8 max-w-2xl">
-            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+        <section className="mt-12 sm:mt-20">
+          <div className="mb-5 max-w-2xl sm:mb-8">
+            <h2 className="text-xl font-bold tracking-tight sm:text-3xl">
               Everything an affiliate or app builder needs.
             </h2>
-            <p className="mt-2 text-sm text-muted-foreground">
+            <p className="mt-1.5 text-xs text-muted-foreground sm:mt-2 sm:text-sm">
               One dashboard for live commissions, app management, and API tooling — straight from
               the Deriv API.
             </p>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-2.5 sm:gap-4 lg:grid-cols-4">
             {FEATURES.map((f) => (
               <Card
                 key={f.title}
-                className="group border-border/60 bg-card/60 p-5 transition-colors hover:bg-card"
+                className="group border-border/60 bg-card/60 p-3 transition-colors hover:bg-card sm:p-5"
               >
-                <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary/15 text-primary transition-transform group-hover:scale-105">
-                  <f.icon className="h-5 w-5" />
+                <div className="mb-2 inline-flex h-8 w-8 items-center justify-center rounded-md bg-primary/15 text-primary transition-transform group-hover:scale-105 sm:mb-3 sm:h-10 sm:w-10 sm:rounded-lg">
+                  <f.icon className="h-4 w-4 sm:h-5 sm:w-5" />
                 </div>
-                <h3 className="text-sm font-semibold">{f.title}</h3>
-                <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{f.body}</p>
+                <h3 className="text-xs font-semibold sm:text-sm">{f.title}</h3>
+                <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground sm:mt-1.5 sm:text-xs">
+                  {f.body}
+                </p>
               </Card>
             ))}
           </div>
         </section>
 
         {/* How it works */}
-        <section className="mt-16 grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+        <section className="mt-12 grid gap-6 sm:mt-16 sm:gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
           <div>
-            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">How it works</h2>
-            <p className="mt-2 text-sm text-muted-foreground">
+            <h2 className="text-xl font-bold tracking-tight sm:text-3xl">How it works</h2>
+            <p className="mt-1.5 text-xs text-muted-foreground sm:mt-2 sm:text-sm">
               No middlemen, no proxies. Your browser talks directly to Deriv over a secure
               WebSocket. We never see your tokens or trades.
             </p>
-            <div className="mt-6 flex flex-col gap-3">
+            <div className="mt-4 flex flex-col gap-2 sm:mt-6 sm:gap-3">
               <a
                 href="https://api.deriv.com/api-explorer"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-between rounded-lg border border-border/60 bg-card/60 px-4 py-3 text-sm transition-colors hover:bg-card"
+                className="inline-flex items-center justify-between rounded-lg border border-border/60 bg-card/60 px-3 py-2.5 text-xs transition-colors hover:bg-card sm:px-4 sm:py-3 sm:text-sm"
               >
                 <span className="inline-flex items-center gap-2">
                   <BookOpen className="h-4 w-4 text-primary" />
                   Deriv API explorer
                 </span>
-                <ExternalLink className="h-4 w-4 text-muted-foreground" />
+                <ExternalLink className="h-3.5 w-3.5 text-muted-foreground sm:h-4 sm:w-4" />
               </a>
               <a
                 href="https://appderiv.site"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-between rounded-lg border border-border/60 bg-card/60 px-4 py-3 text-sm transition-colors hover:bg-card"
+                className="inline-flex items-center justify-between rounded-lg border border-border/60 bg-card/60 px-3 py-2.5 text-xs transition-colors hover:bg-card sm:px-4 sm:py-3 sm:text-sm"
               >
                 <span className="inline-flex items-center gap-2">
                   <Globe className="h-4 w-4 text-primary" />
                   appderiv.site — third-party app builders
                 </span>
-                <ExternalLink className="h-4 w-4 text-muted-foreground" />
+                <ExternalLink className="h-3.5 w-3.5 text-muted-foreground sm:h-4 sm:w-4" />
               </a>
             </div>
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-2 sm:space-y-3">
             {STEPS.map((s) => (
               <Card
                 key={s.n}
-                className="flex gap-4 border-border/60 bg-card/60 p-5 shadow-[var(--shadow-card)]"
+                className="flex gap-3 border-border/60 bg-card/60 p-3 shadow-[var(--shadow-card)] sm:gap-4 sm:p-5"
               >
-                <div className="font-mono text-xl font-semibold text-primary">{s.n}</div>
+                <div className="font-mono text-base font-semibold text-primary sm:text-xl">
+                  {s.n}
+                </div>
                 <div>
-                  <h3 className="text-sm font-semibold">{s.title}</h3>
-                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{s.body}</p>
+                  <h3 className="text-xs font-semibold sm:text-sm">{s.title}</h3>
+                  <p className="mt-0.5 text-[11px] leading-relaxed text-muted-foreground sm:mt-1 sm:text-xs">
+                    {s.body}
+                  </p>
                 </div>
               </Card>
             ))}
           </div>
         </section>
 
-        <p className="mx-auto mt-16 max-w-md text-center text-xs text-muted-foreground">
+        <p className="mx-auto mt-10 max-w-md text-center text-[11px] text-muted-foreground sm:mt-16 sm:text-xs">
           We never send your token to any server other than Deriv&apos;s WebSocket API
           (<span className="font-mono">wss://ws.derivws.com</span>). Sessions are stored locally in
           your browser.
