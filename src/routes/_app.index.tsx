@@ -251,8 +251,7 @@ function Dashboard({ token, accountLabel }: { token: string; accountLabel: strin
         <footer className="mt-10 text-center text-xs text-muted-foreground">
           Live data via <span className="font-mono">wss://ws.derivws.com/websockets/v3</span> ·
           App ID <span className="font-mono">133222</span>
-        </footer>
-      </main>
-    </div>
+      </footer>
+    </main>
   );
 }
