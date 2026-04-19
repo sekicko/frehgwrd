@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { default as handler } from "../dist/server/index.js";
+import handler from "../dist/server/index.js";
 
-export default async (req: any, res: any) => {
+const ssr = async (req, res) => {
   try {
     // Construct the full URL from the request
     const protocol = req.headers["x-forwarded-proto"] || "https";
@@ -14,9 +14,9 @@ export default async (req: any, res: any) => {
     // Collect the request body for non-GET requests
     let body = null;
     if (!["GET", "HEAD", "OPTIONS"].includes(req.method)) {
-      body = await new Promise((resolve: any, reject: any) => {
+      body = await new Promise((resolve, reject) => {
         let data = "";
-        req.on("data", (chunk: any) => (data += chunk));
+        req.on("data", (chunk) => (data += chunk));
         req.on("end", () => resolve(Buffer.from(data)));
         req.on("error", reject);
       });
@@ -30,13 +30,13 @@ export default async (req: any, res: any) => {
     });
 
     // Call the TanStack Start handler with the Web API Request
-    const webResponse = await handler(webRequest);
+    const webResponse = await handler.fetch(webRequest);
 
     // Copy status code
     res.statusCode = webResponse.status || 200;
 
     // Copy headers from the response to Node.js res
-    webResponse.headers.forEach((value: any, key: any) => {
+    webResponse.headers.forEach((value, key) => {
       res.setHeader(key, value);
     });
 
@@ -54,3 +54,5 @@ export default async (req: any, res: any) => {
     res.end("Internal Server Error");
   }
 };
+
+export default ssr;
